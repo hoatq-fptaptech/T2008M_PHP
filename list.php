@@ -10,25 +10,32 @@
 <body>
     <h1>Danh sách sinh viên</h1>
     <?php
-        $dshocsinh = [];
-        $dshocsinh[] = [
-            "name"=>"Nguyen Van An",
-            "age"=>18
-        ]; // them 1 mang co cac key value
-        $dshocsinh[] = [
-            "name"=>"Nguyen Minh Duc",
-            "age"=>20
-        ];
-        $dshocsinh[] =  [
-            "name"=>"Dao Duy Anh",
-            "age"=>21
-        ];
+        // lay ds sv tu database
+        $servername = "localhost";
+        $username = "root";
+        $password = ""; // neu dung mamp password: root
+        $db = "t2008m_php";
+        // create connection
+        $conn = new mysqli($servername,$username,$password,$db);
+        // kiem tra ket noi
+        if($conn->connect_error){
+            die("Connect error...");// die lam dung luong chuong trinh tai day
+        }
+      //  echo "Connect successfully";
+        // lay data tu bang sinhviens
+        $sql_txt = "select * from sinhviens";
+        $rs = $conn->query($sql_txt);
+        $dssinhvien = [];
+        if($rs->num_rows>0){
+            while($row = $rs->fetch_assoc()){
+                $dssinhvien[] = $row;
+            }
+        }
     ?>
     <ul>
-    <?php foreach ($dshocsinh as $hs){ ?>
-        <li><?php echo $hs["name"]."--".$hs["age"]; ?></li>
-    <?php  } ?>
+        <?php foreach($dssinhvien as $sv){ ?>
+            <li><a href="chitietsinhvien.php?id=<?php echo $sv["id"];?>"><?php echo $sv["name"]."--".$sv["age"];?></a></li>
+       <?php } ?>
     </ul>
-    <a href="index.php">Quay về trang chủ</a>
 </body>
 </html>
