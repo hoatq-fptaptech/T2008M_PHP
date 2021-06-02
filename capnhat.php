@@ -2,7 +2,7 @@
     $name = $_POST["name"];
     $age = $_POST["age"];
     $address = $_POST["address"];
-
+    $id = $_POST["id"];
     $servername = "localhost";
     $username = "root";
     $password = ""; // neu dung mamp password: root
@@ -13,10 +13,11 @@
     if($conn->connect_error){
         die("Connect error...");// die lam dung luong chuong trinh tai day
     }
-
-    $sql_txt = "insert into sinhviens (name,age,address) values('$name',$age,'$address')";
+    $sql_txt = "update sinhviens set name='$name',age = $age, address='$address' where id= $id";
     if($conn->query($sql_txt) === true){
         header("location: list.php"); // readirect ve trang danh sach
     }else{
         echo "ERRORS:".$conn->error;
     }
+    // array key=>value
+//object obj->method() object->attribute

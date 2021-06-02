@@ -11,6 +11,7 @@
        <form action="luusinhvien.php"  method="POST">
            <input type="text" name="name" placeholder="Name.."/>
            <input type="number" name="age" placeholder="Age.."/>
+           <textarea name="address" placeholder="Address"></textarea>
            <button type="submit">Submit</button>
        </form>
 </body>

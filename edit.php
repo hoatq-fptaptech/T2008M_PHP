@@ -5,12 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Danh sách sinh viên</title>
+    <title>Sửa thông tin</title>
 </head>
 <body>
-    <h1>Danh sách sinh viên</h1>
     <?php
-        // lay ds sv tu database
+        $id = $_GET['id'];
         $servername = "localhost";
         $username = "root";
         $password = ""; // neu dung mamp password: root
@@ -21,23 +20,24 @@
         if($conn->connect_error){
             die("Connect error...");// die lam dung luong chuong trinh tai day
         }
-      //  echo "Connect successfully";
-        // lay data tu bang sinhviens
-        $sql_txt = "select * from sinhviens";
+
+        $sql_txt = "select * from sinhviens where id = $id";
         $rs = $conn->query($sql_txt);
-        $dssinhvien = [];
+        $sv = null;
         if($rs->num_rows>0){
             while($row = $rs->fetch_assoc()){
-                $dssinhvien[] = $row;
+                $sv = $row;
+                break;
             }
         }
+        if($sv == null) header("location: list.php");
     ?>
-    <a href="themsinhvien.php">Thêm sinh viên</a>
-    <ul>
-        <?php foreach($dssinhvien as $sv){ ?>
-            <li><a href="chitietsinhvien.php?id=<?php echo $sv["id"];?>"><?php echo $sv["name"]."--".$sv["age"];?></a>
-                <a href="edit.php?id=<?php echo $sv["id"];?>">Sửa</a><a href="delete.php?id=<?php echo $sv["id"];?>">Xóa</a></li>
-       <?php } ?>
-    </ul>
+    <form action="capnhat.php"  method="POST">
+        <input type="hidden" name="id" value="<?php echo $sv["id"];?>"/>
+        <input type="text" name="name" value="<?php echo $sv["name"];?>" placeholder="Name.."/>
+        <input type="number" name="age" value="<?php echo $sv["age"];?>" placeholder="Age.."/>
+        <textarea name="address" placeholder="Address"><?php echo $sv["address"];?></textarea>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
