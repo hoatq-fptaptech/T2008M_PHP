@@ -1,13 +1,18 @@
+<?php include_once "session.php";?>
 <?php include_once "database.php" ;?>
+<?php
+$cookie_name = "title";
+$cookie_value = "Hệ thống quản lý sinh viên";
+setcookie($cookie_name,$cookie_value,time()+(60*60*24),"/"); // nạp giá trị vào cookie
+
+$_SESSION["user"] = [
+        "username"=>"Nguyễn Văn An",
+        "email" =>"annv@gmail.com"
+];
+?>
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Danh sách sinh viên</title>
-</head>
+<?php include "html/head.php" ;?>
 <body>
     <h1>Danh sách sinh viên</h1>
     <?php
