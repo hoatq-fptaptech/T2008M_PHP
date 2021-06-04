@@ -3,7 +3,6 @@
 <?php include "html/head.php" ;?>
 <body>
     <?php
-        $id = $_GET['id'];
         $id = $_GET["id"];// $_GET la 1 array voi cac key la key cua param tren url
         $ds = queryDB("select * from sinhviens where id = $id");
         if(count($ds) == 0){

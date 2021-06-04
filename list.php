@@ -21,10 +21,13 @@ $_SESSION["user"] = [
         $dssinhvien = queryDB($sql_txt);
     ?>
     <a href="themsinhvien.php">Thêm sinh viên</a>
+    <a href="danhsachuutu.php">Danh sách SV ưu tú</a>
     <ul>
         <?php foreach($dssinhvien as $sv){ ?>
             <li><a href="chitietsinhvien.php?id=<?php echo $sv["id"];?>"><?php echo $sv["name"]."--".$sv["age"];?></a>
-                <a href="edit.php?id=<?php echo $sv["id"];?>">Sửa</a><a href="delete.php?id=<?php echo $sv["id"];?>">Xóa</a></li>
+                <a href="edit.php?id=<?php echo $sv["id"];?>">Sửa</a><a href="delete.php?id=<?php echo $sv["id"];?>">Xóa</a>
+                <a href="svuutu.php?id=<?php echo $sv["id"];?>">Thêm vào danh sách SV ưu tú</a>
+            </li>
        <?php } ?>
     </ul>
 </body>
