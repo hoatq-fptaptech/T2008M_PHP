@@ -1,5 +1,6 @@
 <?php
-include_once "database.php";
+//include_once "database.php";
+include_once "models/Sinhvien.php";
 class Controller{
 
     public function home(){
@@ -11,8 +12,10 @@ class Controller{
     }
 
     public function listSV(){
-        $sql_txt = "select * from sinhviens";
-        $dssinhvien = queryDB($sql_txt);
+//        $sql_txt = "select * from sinhviens";
+//        $dssinhvien = queryDB($sql_txt);
+        $sv = new SinhVien();
+        $dssinhvien = $sv->all();
         include "views/listsv.php";
     }
 
@@ -21,12 +24,8 @@ class Controller{
     }
 
     public function luuSV(){
-        $name = $_POST["name"];
-        $age = $_POST["age"];
-        $address = $_POST["address"];
-
-        $sql_txt = "insert into sinhviens (name,age,address) values('$name',$age,'$address')";
-        if(insertOrUpdateDB($sql_txt)){
+       $sv = new SinhVien();
+        if($sv->save($_POST)){
             header("Location: ?route=listsv");
         }else{
             echo "Error";
